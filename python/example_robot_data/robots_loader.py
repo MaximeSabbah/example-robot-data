@@ -1516,10 +1516,10 @@ class HumanLoader(RobotLoader):
             "right_elbow_Z",
             "right_wrist_Z",
             "left_hip_Z",
-            "left_knee",
+            "left_knee_Z",
             "left_ankle_Z",
             "right_hip_Z",
-            "right_knee",
+            "right_knee_Z",
             "right_ankle_Z",
         ]
 
@@ -1601,7 +1601,7 @@ class HumanLoader(RobotLoader):
                         3,
                     )
                 )
-            elif j == "left_knee":
+            elif j == "left_knee_Z":
                 joint_placements.append(np.array([0, -dict_lengths["L_upperleg"], 0]))
             elif j == "left_ankle_Z":
                 joint_placements.append(np.array([0, -dict_lengths["L_lowerleg"], 0]))
@@ -1613,7 +1613,7 @@ class HumanLoader(RobotLoader):
                         3,
                     )
                 )
-            elif j == "right_knee":
+            elif j == "right_knee_Z":
                 joint_placements.append(np.array([0, -dict_lengths["L_upperleg"], 0]))
             elif j == "right_ankle_Z":
                 joint_placements.append(np.array([0, -dict_lengths["L_lowerleg"], 0]))
