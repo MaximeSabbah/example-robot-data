@@ -1074,8 +1074,8 @@ class HumanLoader(RobotLoader):
                 length = (0.1308 if gender == "f" else 0.1310) * height
                 sgt_lengths["middle_head_0"] = length
                 dict_sgmt["mass"] = np.round(
-                    (0.067 if gender == "f" else 0.067) * weight, 2
-                )
+                    0.067 * weight, 2
+                )  # same for male and female
                 dict_sgmt["com"] = np.round(
                     (
                         np.array([-0.07, 0.597, 0])
@@ -2085,16 +2085,14 @@ ROBOTS = {
 }
 
 
-def loader(name, *args, display=False, rootNodeName="", verbose=False, **kwargs):
+def loader(name, display=False, rootNodeName="", verbose=False, **kwargs):
     """Load a robot by its name, and optionally display it in a viewer."""
     if name not in ROBOTS:
         robots = ", ".join(sorted(ROBOTS.keys()))
         raise ValueError(f"Robot '{name}' not found. Possible values are {robots}")
 
     if name.lower() == "human":
-        if len(args) >= 6:
-            height, weight, gender = args[:3]
-        elif {"height", "weight", "gender"}.issubset(kwargs):
+        if {"height", "weight", "gender"}.issubset(kwargs):
             height = kwargs.pop("height")
             weight = kwargs.pop("weight")
             gender = kwargs.pop("gender")
@@ -2116,13 +2114,13 @@ def loader(name, *args, display=False, rootNodeName="", verbose=False, **kwargs)
     return inst
 
 
-def load(name, *args, display=False, rootNodeName="", verbose=False, **kwargs):
+def load(name, display=False, rootNodeName="", verbose=False, **kwargs):
     """Load a robot by its name, and optionnaly display it in a viewer."""
-    return loader(name, *args, display, rootNodeName, verbose, **kwargs).robot
+    return loader(name, display, rootNodeName, verbose, **kwargs).robot
 
 
-def load_full(name, *args, display=False, rootNodeName="", verbose=False, **kwargs):
+def load_full(name, display=False, rootNodeName="", verbose=False, **kwargs):
     """Load a robot by its name, optionnaly display it in a viewer,
     and provide its q0 and paths."""
-    inst = loader(name, *args, display, rootNodeName, verbose, **kwargs)
+    inst = loader(name, display, rootNodeName, verbose, **kwargs)
     return inst.robot, inst.robot.q0, inst.df_path, inst.srdf_path
